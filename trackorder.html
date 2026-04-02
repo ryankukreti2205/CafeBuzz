@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CafeBuzz • Track Order</title>
+  <link rel="stylesheet" href="payment.css"> <!-- reuse same style for consistency -->
+  <style>
+    .track-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      margin: auto;
+      margin-top: 60px;
+      text-align: center;
+    }
+    h2 {
+      color: #5c2e00;
+      margin-bottom: 20px;
+    }
+    .status {
+      margin: 20px 0;
+      font-size: 16px;
+      font-weight: bold;
+      color: #f29c36;
+    }
+    .steps {
+      text-align: left;
+      margin-top: 20px;
+    }
+    .steps li {
+      margin: 12px 0;
+      padding: 8px 12px;
+      border-left: 4px solid #f29c36;
+      background: #fff8f0;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="track-container">
+    <h2>Track Your Order</h2>
+    <p class="status">Your order is being prepared 🚀</p>
+
+    <ul class="steps">
+      <li>✅ Order Placed</li>
+      <li>✅ Payment Mode: Cash on Delivery</li>
+      <li>⏳ Preparing your food...</li>
+      <li>🔜 Ready for pickup</li>
+    </ul>
+
+    <br>
+    <button class="pay-btn" onclick="goBack()">Back to Dashboard</button>
+  </div>
+
+  <script>
+    function goBack(){
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>

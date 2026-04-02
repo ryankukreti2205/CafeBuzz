@@ -1,0 +1,132 @@
+.track-page {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.07), transparent 50%), var(--bg);
+}
+
+.track-card {
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    box-shadow: var(--shadow-card);
+}
+
+.track-success-icon {
+    color: #22c55e;
+    margin-bottom: 16px;
+    animation: fadeIn 0.5s ease both;
+}
+
+.track-heading {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.track-id {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.track-total {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+}
+
+.track-id strong,
+.track-total strong {
+    color: var(--text);
+}
+
+/* Timeline */
+.track-timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.track-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+}
+
+.track-step-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dim);
+    transition: all 0.3s;
+}
+
+.track-step--done .track-step-dot {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: #22c55e;
+    color: #22c55e;
+}
+
+.track-step--active .track-step-dot {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+}
+
+.track-step-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.track-step--done .track-step-label {
+    color: #22c55e;
+}
+
+.track-step--active .track-step-label {
+    color: var(--accent);
+}
+
+.track-arrow {
+    color: var(--border);
+    margin-top: -18px;
+}
+
+.track-eta {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    background: var(--bg-elevated);
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.track-eta strong {
+    color: var(--text);
+}
+
+.back-btn {
+    display: inline-flex;
+}

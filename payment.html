@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="payment.css">
+  <title>CafeBuzz • Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fdf7f0;
+      margin: 0;
+      padding: 20px;
+    }
+    .payment-container {
+      max-width: 500px;
+      background: #fff;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #f29c36;
+    }
+    .method {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+    .method input {
+      margin-right: 10px;
+    }
+    .pay-btn {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #f29c36;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .pay-btn:hover {
+      background: #d9822b;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Choose Payment Method</h2>
+    <form id="paymentForm">
+      <div class="method">
+        <input type="radio" name="payment" value="card" required>
+        <label>Credit/Debit Card</label>
+      </div>
+      <div class="method">
+        <input type="radio" name="payment" value="upi">
+        <label>UPI (Google Pay, PhonePe, Paytm)</label>
+      </div>
+      <div class="method">
+        <input type="radio" name="payment" value="wallet">
+        <label>Wallet</label>
+      </div>
+      <div class="method">
+        <input type="radio" name="payment" value="cod">
+        <label>Cash on Delivery</label>
+      </div>
+      <button type="submit" class="pay-btn">Proceed</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("paymentForm").onsubmit = function(e) {
+      e.preventDefault();
+      const method = document.querySelector('input[name="payment"]:checked').value;
+
+      if (method === "cod") {
+        alert("Order placed successfully! Please pay in cash when you pick it up.");
+
+        // Store notification data
+        localStorage.setItem('cafebuzz_notification', JSON.stringify({
+          message: "Your order has been placed successfully 🚀",
+          time: new Date().toLocaleTimeString()
+        }));
+
+        window.location.href = "trackorder.html";
+      } else {
+        alert("Online payment is coming soon! Please use Cash on Delivery for now.");
+      }
+    }
+  </script>
+</body>
+</html>

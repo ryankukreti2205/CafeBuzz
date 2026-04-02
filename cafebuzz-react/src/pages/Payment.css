@@ -1,0 +1,123 @@
+.payment-page {
+    min-height: calc(100vh - 64px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245, 158, 11, 0.08), transparent 50%), var(--bg);
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 500px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-card);
+}
+
+.payment-heading {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.payment-sub {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+}
+
+.method-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.method-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border-radius: var(--radius);
+    background: var(--bg-elevated);
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    font-family: inherit;
+}
+
+.method-item:hover {
+    border-color: var(--accent);
+}
+
+.method-item--active {
+    border-color: var(--accent);
+    background: rgba(245, 158, 11, 0.08);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12);
+}
+
+.method-icon {
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.method-info {
+    flex: 1;
+}
+
+.method-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.method-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.method-check {
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.payment-summary {
+    background: var(--bg-elevated);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ps-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.ps-total {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.ps-total span:last-child {
+    color: var(--accent);
+}
+
+.pay-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    border-radius: var(--radius);
+    font-size: 16px;
+}

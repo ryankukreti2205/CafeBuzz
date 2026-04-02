@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CafeBuzz - Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .nav-bar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .nav-bar a, .logout-btn {
+            background-color: #f29c36;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .nav-bar a:hover, .logout-btn:hover {
+            background-color: #d9822b;
+        }
+        .menu-controls {
+            text-align: center;
+            margin: 15px 0;
+        }
+        .menu-controls input, .menu-controls select {
+            padding: 8px;
+            margin: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <img src="images/logo.png" alt="CafeBuzz Logo" class="logo">
+            <nav class="nav-bar">
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="cart.html">Cart</a>
+                <a href="trackorder.html">Track Order</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </nav>
+            <h1>Welcome, <span id="username"></span></h1>
+            <p class="tagline">Your Campus Cafe Menu</p>
+        </header>
+
+        <main>
+            <!-- Search & Filter -->
+            <div class="menu-controls">
+                <input type="text" id="search" placeholder="Search menu..." onkeyup="filterMenu()">
+                <select id="category" onchange="filterMenu()">
+                    <option value="all">All</option>
+                    <option value="drinks">Drinks</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="meals">Meals</option>
+                </select>
+            </div>
+
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items -->
+                <div class="menu-card" data-category="drinks">
+                    <img src="images/images.jpeg" alt="Coffee">
+                    <h3>Cold Coffee</h3>
+                    <p class="price">₹120</p>
+                    <a href="cart.html?item=Cold Coffee&price=120" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="snacks">
+                    <img src="images/images-1.jpeg" alt="Sandwich">
+                    <h3>Grilled Sandwich</h3>
+                    <p class="price">₹90</p>
+                    <a href="cart.html?item=Grilled Sandwich&price=90" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="meals">
+                    <img src="images/images-2.jpeg" alt="Pizza">
+                    <h3>Veg Pizza</h3>
+                    <p class="price">₹180</p>
+                    <a href="cart.html?item=Veg Pizza&price=180" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="snacks">
+                    <img src="images/images-3.jpeg" alt="Burger">
+                    <h3>Cheese Burger</h3>
+                    <p class="price">₹150</p>
+                    <a href="cart.html?item=Cheese Burger&price=150" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="meals">
+                    <img src="images/white-sauce-pasta-recipe.webp" alt="Pasta">
+                    <h3>White Sauce Pasta</h3>
+                    <p class="price">₹160</p>
+                    <a href="cart.html?item=White Sauce Pasta&price=160" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="snacks">
+                    <img src="images/Homemade-French-Fries_8.jpg" alt="Fries">
+                    <h3>French Fries</h3>
+                    <p class="price">₹80</p>
+                    <a href="cart.html?item=French Fries&price=80" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="snacks">
+                    <img src="images/images-4.jpeg" alt="Muffin">
+                    <h3>Chocolate Muffin</h3>
+                    <p class="price">₹70</p>
+                    <a href="cart.html?item=Chocolate Muffin&price=70" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="drinks">
+                    <img src="images/images-5.jpeg" alt="Tea">
+                    <h3>Masala Chai</h3>
+                    <p class="price">₹40</p>
+                    <a href="cart.html?item=Masala Chai&price=40" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="drinks">
+                    <img src="images/images-6.jpeg" alt="Milkshake">
+                    <h3>Chocolate Milkshake</h3>
+                    <p class="price">₹130</p>
+                    <a href="cart.html?item=Chocolate Milkshake&price=130" class="order-btn">Order Now</a>
+                </div>
+                <div class="menu-card" data-category="snacks">
+                    <img src="images/glazed-donut-recipe-1-65008ab2b45fb.jpg.avif" alt="Donut">
+                    <h3>Glazed Donut</h3>
+                    <p class="price">₹60</p>
+                    <a href="cart.html?item=Glazed Donut&price=60" class="order-btn">Order Now</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('cafebuzz_user');
+            window.location.href = 'login.html';
+        }
+
+        function filterMenu() {
+            let search = document.getElementById('search').value.toLowerCase();
+            let category = document.getElementById('category').value;
+            let items = document.querySelectorAll('.menu-card');
+
+            items.forEach(item => {
+                let name = item.querySelector('h3').innerText.toLowerCase();
+                let itemCat = item.getAttribute('data-category');
+                if ((category === 'all' || category === itemCat) && name.includes(search)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Ask for notification permission when dashboard loads
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+
+        // Load username + check for new notifications
+        window.onload = function() {
+            const user = localStorage.getItem('cafebuzz_user');
+            document.getElementById('username').innerText = user ? user : "Guest";
+
+            // Check if there's a notification waiting
+            const notif = localStorage.getItem('cafebuzz_notification');
+            if (notif) {
+                const { message, time } = JSON.parse(notif);
+
+                // Display browser notification
+                if (Notification.permission === "granted") {
+                    new Notification("CafeBuzz Update", { 
+                        body: message, 
+                        icon: "images/logo.png" 
+                    });
+                }
+
+                // Also show alert fallback
+                alert(`${message}\n(${time})`);
+
+                // Clear it after showing once
+                localStorage.removeItem('cafebuzz_notification');
+            }
+        };
+    </script>
+</body>
+</html>

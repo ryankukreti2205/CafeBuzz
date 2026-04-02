@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CafeBuzz - Cart</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <img src="images/logo.png" alt="CafeBuzz Logo" class="logo">
+            <nav class="nav-bar">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="cart.html" class="active">Cart</a>
+                <a href="track.html">Track Order</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </nav>
+            <h1>Your Cart</h1>
+            <p class="tagline">Review your order before checking out.</p>
+        </header>
+
+        <main>
+            <div class="cart-items" id="cartItems"></div>
+
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0</span>
+                </div>
+                <div class="summary-line">
+                    <span>Tax (5%):</span>
+                    <span id="tax">₹0</span>
+                </div>
+                <div class="summary-line total-line">
+                    <h3>Total:</h3>
+                    <h3 id="total">₹0</h3>
+                </div>
+            </div>
+
+            <div class="cart-actions">
+                <a href="dashboard.html" class="continue-shopping-btn">Continue Shopping</a>
+                <a href="payment.html" class="checkout-btn">Checkout</a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function logout() {
+            localStorage.removeItem('cafebuzz_user');
+            window.location.href = 'login.html';
+        }
+
+        let cart = [];
+
+        function addItemToCart(item, price) {
+            cart.push({ item: item, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            cartItemsContainer.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item-card';
+                itemElement.innerHTML = `
+                    <h4 class="item-name">${item.item}</h4>
+                    <span class="item-price">₹${item.price}</span>
+                    <button class="remove-item-btn" onclick="removeItemFromCart(${index})">Remove</button>
+                `;
+                cartItemsContainer.appendChild(itemElement);
+                subtotal += parseFloat(item.price);
+            });
+
+            const tax = subtotal * 0.05;
+            const total = subtotal + tax;
+
+            document.getElementById('subtotal').innerText = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('tax').innerText = `₹${tax.toFixed(2)}`;
+            document.getElementById('total').innerText = `₹${total.toFixed(2)}`;
+
+            // Save totals for payment page
+            localStorage.setItem('cafebuzz_cart_totals', JSON.stringify({
+                subtotal: subtotal.toFixed(2),
+                tax: tax.toFixed(2),
+                fee: 5,
+                total: (total + 5).toFixed(2)
+            }));
+        }
+
+        function removeItemFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        window.onload = function() {
+            const storedCart = localStorage.getItem('cart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+                renderCart();
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const item = urlParams.get('item');
+            const price = urlParams.get('price');
+            if (item && price) {
+                addItemToCart(item, price);
+            }
+        };
+    </script>
+</body>
+</html>
