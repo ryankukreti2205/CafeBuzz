@@ -25,6 +25,8 @@ app.use(cors({
     'http://localhost:5500',
     'http://127.0.0.1:5173',
     'http://localhost:5173',
+    'https://cafe-buzz.vercel.app',
+    'https://cafe-buzz-frontend.vercel.app'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
@@ -182,9 +184,16 @@ app.put('/api/orders/:id', authMiddleware, async (req, res) => {
 });
 
 // -----------------------------
-// 🚀 Start the Server
+// 🚀 Start the Server / Export for Vercel
 // -----------------------------
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, '127.0.0.1', () => {
-  console.log(`🚀 Server running on http://127.0.0.1:${PORT}`);
-});
+// Vercel serverless functions require the app to be exported.
+// We only call app.listen if we are NOT running on Vercel.
+if (process.env.VERCEL) {
+  module.exports = app;
+} else {
+  const PORT = process.env.PORT || 5000;
+  // Removed '127.0.0.1' so cloud platforms (if any) can bind to 0.0.0.0
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
